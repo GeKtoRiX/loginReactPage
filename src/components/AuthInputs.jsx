@@ -1,9 +1,12 @@
+// Хук динамической работы с состояниями элементов.
 import { useState } from 'react';
+// Компонентный подход создания стилизаций элементов.
 import { styled } from 'styled-components';
-
+// Стили Кнопок и Полей Ввода.
 import Button from './Button.jsx';
 import Input from './Input.jsx';
 
+// Компонент стилизации <ControlDiv/>
 const ControlDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,11 +15,16 @@ const ControlDiv = styled.div`
 `;
 
 export default function AuthInputs() {
+  // Хук динамического состояния поля Email(String).
   const [enteredEmail, setEnteredEmail] = useState('');
+  // Хук динамического состояния поля Password(String).
   const [enteredPassword, setEnteredPassword] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-
+  // Функция измненения состояний полей Email и Password.
   function handleInputChange(identifier, value) {
+    // identifier - наименование поля ввода.
+    // value - значение поля ввода.
+
+    // Измение состояния хуков в зависимости от identifier.
     if (identifier === 'email') {
       setEnteredEmail(value);
     } else {
@@ -24,11 +32,16 @@ export default function AuthInputs() {
     }
   }
 
+  // Хук динамического состояния кнопки Submit(Boolean).
+  const [submitted, setSubmitted] = useState(false);
+  // Функция измненения состояний кнпоки Submit.
   function handleLogin() {
     setSubmitted(true);
   }
 
+  // Валидация Email: Submit нажат && в email нет символа @
   const emailNotValid = submitted && !enteredEmail.includes('@');
+  // Валидация Password: Submit нажат && Password менее 6 символов.
   const passwordNotValid = submitted && enteredPassword.trim().length < 6;
 
   return (
@@ -40,7 +53,6 @@ export default function AuthInputs() {
           type='email'
           onChange={(event) => handleInputChange('email', event.target.value)}
         />
-
         <Input
           invalid={passwordNotValid}
           label='Password'
