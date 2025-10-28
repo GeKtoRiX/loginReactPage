@@ -5,6 +5,7 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import eslint from 'vite-plugin-eslint';
 import viteCompression from 'vite-plugin-compression';
 import { visualizer } from 'rollup-plugin-visualizer';
+import tailwindcss from '@tailwindcss/vite';
 
 const imageCacheDir = fileURLToPath(
   new URL('./node_modules/.cache/vite-plugin-image-optimizer', import.meta.url)
@@ -52,6 +53,7 @@ export default defineConfig(({ mode }) => {
         brotliSize: true,
         open: false,
       }),
+      tailwindcss(),
     ],
 
     resolve: {
